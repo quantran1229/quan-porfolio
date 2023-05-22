@@ -1,0 +1,26 @@
+service: api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: prod
+  region: ap-southeast-1
+  environment:
+    PG_USER: user
+    PG_HOST: secret
+    PG_DB: porfolio
+    PG_PASSWORD: secret
+    PG_PORT: 5432
+
+plugins:
+  - serverless-offline
+
+functions:
+  porfolio:
+    handler: index.handler
+    events:
+      - http:
+          path: /pages
+          method: get
+          cors: true
